@@ -40,7 +40,7 @@ A robust Backend REST API built with **Spring Boot** that searches for GitHub re
 
 ### 2. Clone the Repository
 ```bash
-git clone 
+git clone https://github.com/Siddhantkr19/GitHub_Repository_Searcher
 cd github-repo-searcher
 
 ```
