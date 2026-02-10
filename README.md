@@ -42,9 +42,7 @@ A robust Backend REST API built with **Spring Boot** that searches for GitHub re
 ```bash
 git clone https://github.com/Siddhantkr19/GitHub_Repository_Searcher
 cd github-repo-searcher
-
 ```
-
 ### 3. Database Configuration
 
 1. Open **pgAdmin** or your terminal.
