@@ -4,6 +4,7 @@ import com.github.repository.searcher.dto.GithubRepoDto;
 import com.github.repository.searcher.entity.RepositoryDetails;
 import com.github.repository.searcher.repository.RepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,5 +56,19 @@ public class RepositorySearchService {
 
         // Save to DB
         repositoryInterface.save(repo);
+    }
+
+    public List<RepositoryDetails> getStoredRepositories(String language, Long minStars, String sortBy) {
+        // Determine Sorting logic
+        Sort sort = Sort.by(Sort.Direction.DESC, "starsCount"); // Default
+
+        if ("forks".equalsIgnoreCase(sortBy)) {
+            sort = Sort.by(Sort.Direction.DESC, "forksCount");
+        } else if ("updated".equalsIgnoreCase(sortBy)) {
+            sort = Sort.by(Sort.Direction.DESC, "lastUpdated");
+        }
+
+        // Call the repository with optional filters
+        return repositoryInterface.findRepositories(language, minStars, sort);
     }
 }

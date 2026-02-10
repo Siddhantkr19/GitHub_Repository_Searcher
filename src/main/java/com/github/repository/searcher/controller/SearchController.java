@@ -1,11 +1,13 @@
 package com.github.repository.searcher.controller;
 
+import com.github.repository.searcher.entity.RepositoryDetails;
 import com.github.repository.searcher.service.RepositorySearchService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -37,6 +39,20 @@ public class SearchController {
         return ResponseEntity.ok(Map.of(
                 "message", "Repositories fetched and saved successfully",
                 "searchCriteria", request
+        ));
+    }
+    @GetMapping("/repositories")
+    public ResponseEntity<?> getRepositories(
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) Long minStars,
+            @RequestParam(required = false, defaultValue = "stars") String sort
+    ) {
+
+        List<RepositoryDetails> results = searchService.getStoredRepositories(language, minStars, sort);
+
+        return ResponseEntity.ok(Map.of(
+                "count", results.size(),
+                "repositories", results
         ));
     }
 }
